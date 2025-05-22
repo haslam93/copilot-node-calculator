@@ -259,4 +259,31 @@ describe('Arithmetic', function () {
                 });
         });
     });
+
+    describe('Power of Two', function () {
+        it('calculates power of two for a positive number', function (done) {
+            request.get('/arithmetic?operation=pow2&operand1=4&operand2=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 16 });
+                    done();
+                });
+        });
+        it('calculates power of two for a negative number', function (done) {
+            request.get('/arithmetic?operation=pow2&operand1=-4&operand2=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 16 });
+                    done();
+                });
+        });
+        it('calculates power of two for zero', function (done) {
+            request.get('/arithmetic?operation=pow2&operand1=0&operand2=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 0 });
+                    done();
+                });
+        });
+    });
 });

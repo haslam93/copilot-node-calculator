@@ -39,6 +39,9 @@ function calculate(operand1, operand2, operation) {
         case '√':
             uri += "?operation=sqrt";
             break;
+        case '^2':
+            uri += "?operation=pow2";
+            break;
         default:
             setError();
             return;
@@ -147,6 +150,8 @@ document.addEventListener('keypress', (event) => {
         operationPressed(event.key);
     } else if (event.key.toLowerCase() === 's') {
         operationPressed('√');
+    } else if (event.key.toLowerCase() === 'p') {
+        operationPressed('^2');
     } else if (event.key == '=') {
         equalPressed();
     }

@@ -18,6 +18,7 @@ exports.calculate = function(req, res) {
     'divide':   function(a, b) { return a / b === Infinity || a / b === -Infinity ? null : a / b },
     'modulo':   function(a, b) { return b == 0 ? null : a % b },
     'sqrt':     function(a, b) { return a < 0 ? null : Math.sqrt(a) },
+    'pow2':     function(a, b) { return Math.pow(a, 2) },
   };
 
   if (!req.query.operation) {
