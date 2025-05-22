@@ -205,4 +205,58 @@ describe('Arithmetic', function () {
                 });
         });
     });
+
+    describe('Modulo', function () {
+        it('performs modulo operation on two positive integers', function (done) {
+            request.get('/arithmetic?operation=modulo&operand1=7&operand2=3')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 1 });
+                    done();
+                });
+        });
+        it('performs modulo operation with zero as second operand', function (done) {
+            request.get('/arithmetic?operation=modulo&operand1=7&operand2=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: null });
+                    done();
+                });
+        });
+        it('performs modulo operation with negative first operand', function (done) {
+            request.get('/arithmetic?operation=modulo&operand1=-7&operand2=3')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: -1 });
+                    done();
+                });
+        });
+    });
+
+    describe('Square Root', function () {
+        it('calculates square root of a positive number', function (done) {
+            request.get('/arithmetic?operation=sqrt&operand1=9&operand2=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 3 });
+                    done();
+                });
+        });
+        it('calculates square root of zero', function (done) {
+            request.get('/arithmetic?operation=sqrt&operand1=0&operand2=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 0 });
+                    done();
+                });
+        });
+        it('returns null for square root of negative number', function (done) {
+            request.get('/arithmetic?operation=sqrt&operand1=-9&operand2=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: null });
+                    done();
+                });
+        });
+    });
 });

@@ -19,7 +19,7 @@ var operation = null;
 function calculate(operand1, operand2, operation) {
     var uri = location.origin + "/arithmetic";
 
-    // TODO: Add operator
+    // Switch statement to determine the operation
     switch (operation) {
         case '+':
             uri += "?operation=add";
@@ -32,6 +32,12 @@ function calculate(operand1, operand2, operation) {
             break;
         case '/':
             uri += "?operation=divide";
+            break;
+        case '%':
+            uri += "?operation=modulo";
+            break;
+        case '√':
+            uri += "?operation=sqrt";
             break;
         default:
             setError();
@@ -132,14 +138,15 @@ function equalPressed() {
     calculate(operand1, operand2, operation);
 }
 
-// TODO: Add key press logics
 document.addEventListener('keypress', (event) => {
     if (event.key.match(/^\d+$/)) {
         numberPressed(event.key);
     } else if (event.key == '.') {
         decimalPressed();
-    } else if (event.key.match(/^[-*+/]$/)) {
+    } else if (event.key.match(/^[-*+/%]$/)) {
         operationPressed(event.key);
+    } else if (event.key.toLowerCase() === 's') {
+        operationPressed('√');
     } else if (event.key == '=') {
         equalPressed();
     }

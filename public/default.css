@@ -3,7 +3,8 @@ BODY {
     width: 100%;
     padding: 0;
     margin: 0;
-    background-color: #1b4076;
+    background-color: #2c3e50;
+    font-family: 'Arial', sans-serif;
 }
 
 @media screen and (min-device-width: 500px) and (min-device-height: 1024px) {
@@ -46,7 +47,7 @@ BODY {
 }
 
 #result {
-    background-color: #9b9b9b;
+    background-color: #ecf0f1;
     width: 226px;
     height: 63px;
     margin: 0;
@@ -55,9 +56,11 @@ BODY {
     border: 0;
     left: 0;
     top: 32px;
-    font-family: system-ui;
-    font-size: 25px;
+    font-family: 'Courier New', monospace;
+    font-size: 28px;
     text-align: right;
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 /*BUTTON {
@@ -161,6 +164,10 @@ BODY {
     top: 220px;
     width: 250px;
     position: absolute;
+    background-color: #34495e;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .span-2 {
@@ -171,6 +178,25 @@ BODY {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     border: 0;
+    gap: 5px;
+}
+
+/* Operator button styles */
+.btn[onClick*="operationPressed"] {
+    background-color: #e74c3c;
+}
+
+.btn[onClick*="operationPressed"]:hover {
+    background-color: #c0392b;
+}
+
+/* Equal button style */
+.btn[onClick*="equalPressed"] {
+    background-color: #27ae60;
+}
+
+.btn[onClick*="equalPressed"]:hover {
+    background-color: #219653;
 }
 
 .calculator {
@@ -178,9 +204,21 @@ BODY {
 }
 
 .btn {
-    font-size: 1em;
+    font-size: 1.1em;
     height: 45px;
-    border: 1px solid black;
-    background-color: #d5d5d5;
+    border: none;
+    background-color: #3498db;
     margin: 4px;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.2s, transform 0.1s;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #2980b9;
+}
+
+.btn:active {
+    transform: scale(0.95);
 }

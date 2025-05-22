@@ -10,12 +10,14 @@ exports.calculate = function(req, res) {
     res.json({ error: err.message });
   });
 
-  // TODO: Add operator
+  // Operations available in the calculator
   var operations = {
     'add':      function(a, b) { return Number(a) + Number(b) },
     'subtract': function(a, b) { return a - b },
     'multiply': function(a, b) { return a * b },
-    'divide':   function(a, b) { return a / b },
+    'divide':   function(a, b) { return a / b === Infinity || a / b === -Infinity ? null : a / b },
+    'modulo':   function(a, b) { return b == 0 ? null : a % b },
+    'sqrt':     function(a, b) { return a < 0 ? null : Math.sqrt(a) },
   };
 
   if (!req.query.operation) {
