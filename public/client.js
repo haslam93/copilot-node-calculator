@@ -1,6 +1,7 @@
 'use strict';
 
 var value = 0;
+var isLargeDisplay = false;
 
 var states = {
     "start": 0,
@@ -152,6 +153,8 @@ document.addEventListener('keypress', (event) => {
         operationPressed('√');
     } else if (event.key.toLowerCase() === 'p') {
         operationPressed('^2');
+    } else if (event.key.toLowerCase() === 'l') {
+        toggleSize();
     } else if (event.key == '=') {
         equalPressed();
     }
@@ -209,4 +212,17 @@ function setLoading(loading) {
     for (var i = 0; i < buttons.length; i++) {
         buttons[i].disabled = loading;
     }
+}
+
+function toggleSize() {
+    isLargeDisplay = !isLargeDisplay;
+    
+    if (isLargeDisplay) {
+        document.getElementById("results").classList.add("large-display");
+    } else {
+        document.getElementById("results").classList.remove("large-display");
+    }
+    
+    // Refresh display to ensure proper rendering
+    setValue(getValue());
 }
