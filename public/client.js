@@ -33,6 +33,9 @@ function calculate(operand1, operand2, operation) {
         case '/':
             uri += "?operation=divide";
             break;
+        case '√':
+            uri += "?operation=sqrt";
+            break;
         default:
             setError();
             return;
@@ -114,6 +117,15 @@ function operationPressed(op) {
     operand1 = getValue();
     operation = op;
     state = states.operator;
+}
+
+function squareRootPressed() {
+    var currentValue = getValue();
+    if (currentValue >= 0) {
+        calculate(currentValue, 0, '√');
+    } else {
+        setError();
+    }
 }
 
 function equalPressed() {

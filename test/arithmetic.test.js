@@ -96,6 +96,26 @@ describe('Arithmetic', function () {
 // TODO: Challenge #1
  
 
+    describe('Square Root', function () {
+        it('calculates square root of a positive integer', function (done) {
+            request.get('/arithmetic?operation=sqrt&operand1=16&operand2=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 4 });
+                    done();
+                });
+        });
+        
+        it('calculates square root of a floating point number', function (done) {
+            request.get('/arithmetic?operation=sqrt&operand1=2.25&operand2=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 1.5 });
+                    done();
+                });
+        });
+    });
+
     describe('Multiplication', function () {
         it('multiplies two positive integers', function (done) {
             request.get('/arithmetic?operation=multiply&operand1=21&operand2=2')
