@@ -1,186 +1,306 @@
-BODY {
-    height: 100%;
-    width: 100%;
-    padding: 0;
+/* CSS Custom Properties for Modern Theming */
+:root {
+    --primary-bg: #f5f5f7;
+    --secondary-bg: #ffffff;
+    --accent-color: #007aff;
+    --text-primary: #1d1d1f;
+    --text-secondary: #86868b;
+    --border-color: #d2d2d7;
+    --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.15);
+    --border-radius: 12px;
+    --border-radius-sm: 8px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Button Colors */
+    --btn-number-bg: #e5e5ea;
+    --btn-number-hover: #d1d1d6;
+    --btn-operator-bg: #007aff;
+    --btn-operator-hover: #0056cc;
+    --btn-function-bg: #ff9500;
+    --btn-function-hover: #cc7700;
+    --btn-text-dark: #1d1d1f;
+    --btn-text-light: #ffffff;
+    
+    /* Display Colors */
+    --display-bg: #000000;
+    --display-text: #ffffff;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-bg: #1c1c1e;
+        --secondary-bg: #2c2c2e;
+        --text-primary: #ffffff;
+        --text-secondary: #8e8e93;
+        --border-color: #38383a;
+        --btn-number-bg: #48484a;
+        --btn-number-hover: #5a5a5c;
+    }
+}
+
+body {
     margin: 0;
-    background-color: #1b4076;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, var(--primary-bg) 0%, #e1e1e6 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-@media screen and (min-device-width: 500px) and (min-device-height: 1024px) {
-    BODY {
-        transform: scale(1.75);
-        transform-origin: 50% 0;
-        height: 50%;
-    }
-}
-
-@media screen and (min-device-width: 1024px) and (min-device-height: 1366px) {
-    BODY {
-        transform: scale(2.0);
-        transform-origin: 50% 0;
-        height: 50%;
-    }
-}
-
+/* Modern Container Layout */
 .container {
-    min-width: 250px;
-    min-height: 531px;
-    width: 250px;
-    padding: 25px;
-    margin: 0 auto;
+    background: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    padding: 24px;
+    width: 100%;
+    max-width: 320px;
     position: relative;
-    background-image: url(background.png);
-    background-size: 300px 531px;
-    background-repeat: no-repeat;
-    background-position: center top;
+    border: 1px solid var(--border-color);
 }
 
+/* Results Display Area */
 #results {
-    position: relative;
-    top: 0;
-    left: 0;
-}
-
-#buttons {
-    position: relative;
+    margin-bottom: 20px;
 }
 
 #result {
-    background-color: #9b9b9b;
-    width: 226px;
-    height: 63px;
-    margin: 0;
-    padding: 0 12px;
-    position: absolute;
-    border: 0;
-    left: 0;
-    top: 32px;
-    font-family: system-ui;
-    font-size: 25px;
+    background: var(--display-bg);
+    color: var(--display-text);
+    border-radius: var(--border-radius-sm);
+    padding: 20px 16px;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    font-size: 32px;
+    font-weight: 300;
     text-align: right;
-}
-
-/*BUTTON {
-    background-color: #d5d5d5;
-    border: 0;
-    border-radius: 0;
-    width: 55px;
-    height: 42px;
-    position: absolute;
-
-    font-size: 22px;
-}*/
-
-#sign,
-#clear {
-    font-size: 17px;
-}
-
-#clearEntry {
-    font-size: 15px;
-}
-
-#image-icon {
-    left: 0px;
-    top: 202px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     position: relative;
-    width: 55px;
-    height: 42px;
+    border: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
 }
 
-.resultchar {
-    display: inline-block;
-    width: 25px;
-    height: 45px;
-    background: url('digits.png') 0 0 no-repeat;
-    background-size: cover;
-    margin-top: 10px;
-    font: 0/0 Arial;
-    color: rgba(255, 255, 255, 0);
-    text-indent: -9999px;
-    z-index: 1;
-}
-
-.digit0 {
-    background-position: 0 0;
-}
-
-.digit1 {
-    background-position: -25px 0;
-}
-
-.digit2 {
-    background-position: -50px 0;
-}
-
-.digit3 {
-    background-position: -75px 0;
-}
-
-.digit4 {
-    background-position: -100px 0;
-}
-
-.digit5 {
-    background-position: -125px 0;
-}
-
-.digit6 {
-    background-position: -150px 0;
-}
-
-.digit7 {
-    background-position: -175px 0;
-}
-
-.digit8 {
-    background-position: -200px 0;
-}
-
-.digit9 {
-    background-position: -225px 0;
-}
-
-.resultchar.decimal {
-    width: 7px;
-    background-position: -250px 0;
-}
-
-.resultchar.negative {
-    background-position: -257px 0;
-    width: 17px;
-}
-
-.resultchar.exponent {
-    background-position: -275px 0;
-    width: 25px;
-}
-
-.box {
-    box-sizing: border-box;
-    top: 220px;
-    width: 250px;
+/* Loading Indicator */
+#loading {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--text-secondary);
+    border-top: 2px solid var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
 }
 
-.span-2 {
-    grid-column: span 2;
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Modern Button Grid Layout */
+.box {
+    width: 100%;
+    position: relative;
+}
+
+.calculator {
+    width: 100%;
 }
 
 .calculator-buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+}
+
+/* Modern Button Styles */
+.btn {
+    background: var(--btn-number-bg);
+    color: var(--btn-text-dark);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    font-size: 18px;
+    font-weight: 500;
+    height: 64px;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+/* Responsive Design */
+@media (max-width: 480px) {
+    body {
+        padding: 16px;
+    }
+    
+    .container {
+        padding: 20px;
+        max-width: 100%;
+    }
+    
+    .btn {
+        height: 56px;
+        font-size: 16px;
+    }
+    
+    #result {
+        font-size: 28px;
+        padding: 16px 12px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 400px;
+    }
+    
+    .btn {
+        height: 72px;
+        font-size: 20px;
+    }
+    
+    #result {
+        font-size: 36px;
+        padding: 24px 20px;
+    }
+}
+
+/* Disabled State */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.btn:disabled:hover {
+    background: var(--btn-number-bg);
+    transform: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --border-color: #000000;
+        --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.3);
+        --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn {
+        border: 2px solid var(--border-color);
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus Visible for Better Keyboard Navigation */
+.btn:focus-visible {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Screen Reader Only Text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
     border: 0;
 }
-
-.calculator {
-    max-width: 320px;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.btn {
-    font-size: 1em;
-    height: 45px;
-    border: 1px solid black;
-    background-color: #d5d5d5;
-    margin: 4px;
+.btn:hover {
+    background: var(--btn-number-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.btn:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Button Type Variations */
+.btn.operator {
+    background: var(--btn-operator-bg);
+    color: var(--btn-text-light);
+    font-weight: 600;
+}
+
+.btn.operator:hover {
+    background: var(--btn-operator-hover);
+}
+
+.btn.function {
+    background: var(--btn-function-bg);
+    color: var(--btn-text-light);
+    font-weight: 600;
+}
+
+.btn.function:hover {
+    background: var(--btn-function-hover);
+}
+
+.btn.equals {
+    background: var(--btn-operator-bg);
+    color: var(--btn-text-light);
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.btn.equals:hover {
+    background: var(--btn-operator-hover);
+}
+
+/* Span 2 for wider buttons */
+.span-2 {
+    grid-column: span 2;
+}
+
+/* Ripple Effect */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+.btn:active::before {
+    width: 100px;
+    height: 100px;
 }

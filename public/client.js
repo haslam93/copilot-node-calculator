@@ -132,7 +132,30 @@ function equalPressed() {
     calculate(operand1, operand2, operation);
 }
 
-// TODO: Add key press logics
+// Enhanced keyboard support for accessibility
+document.addEventListener('keydown', (event) => {
+    // Handle Enter and Space for equals
+    if (event.key === 'Enter' || (event.key === ' ' && event.target.classList.contains('equals'))) {
+        event.preventDefault();
+        equalPressed();
+        return;
+    }
+    
+    // Handle Escape for clear
+    if (event.key === 'Escape') {
+        event.preventDefault();
+        clearPressed();
+        return;
+    }
+    
+    // Handle Backspace for clear entry
+    if (event.key === 'Backspace') {
+        event.preventDefault();
+        clearPressed();
+        return;
+    }
+});
+
 document.addEventListener('keypress', (event) => {
     if (event.key.match(/^\d+$/)) {
         numberPressed(event.key);
@@ -140,7 +163,7 @@ document.addEventListener('keypress', (event) => {
         decimalPressed();
     } else if (event.key.match(/^[-*+/]$/)) {
         operationPressed(event.key);
-    } else if (event.key == '=') {
+    } else if (event.key == '=' || event.key == 'Enter') {
         equalPressed();
     }
 });
@@ -163,22 +186,8 @@ function setValue(n) {
         displayValue = displayValue.toExponential(3);
     }
 
-    var chars = displayValue.toString().split("");
-    var html = "";
-
-    for (var c of chars) {
-        if (c == '-') {
-            html += "<span class=\"resultchar negative\">" + c + "</span>";
-        } else if (c == '.') {
-            html += "<span class=\"resultchar decimal\">" + c + "</span>";
-        } else if (c == 'e') {
-            html += "<span class=\"resultchar exponent\">e</span>";
-        } else if (c != '+') {
-            html += "<span class=\"resultchar digit" + c + "\">" + c + "</span>";
-        }
-    }
-
-    document.getElementById("result").innerHTML = html;
+    // Modern text-based display instead of image sprites
+    document.getElementById("result").innerHTML = displayValue.toString();
 }
 
 function setError(n) {
