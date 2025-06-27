@@ -132,16 +132,34 @@ function equalPressed() {
     calculate(operand1, operand2, operation);
 }
 
-// TODO: Add key press logics
+// Enhanced keyboard support
+document.addEventListener('keydown', (event) => {
+    // Handle keydown for special keys
+    if (event.key === 'Escape' || event.key === 'Delete') {
+        clearPressed();
+        event.preventDefault();
+    } else if (event.key === 'Enter') {
+        equalPressed();
+        event.preventDefault();
+    } else if (event.key === 'Backspace') {
+        clearPressed(); // Could be modified to clear entry instead
+        event.preventDefault();
+    }
+});
+
 document.addEventListener('keypress', (event) => {
     if (event.key.match(/^\d+$/)) {
         numberPressed(event.key);
+        event.preventDefault();
     } else if (event.key == '.') {
         decimalPressed();
+        event.preventDefault();
     } else if (event.key.match(/^[-*+/]$/)) {
         operationPressed(event.key);
-    } else if (event.key == '=') {
+        event.preventDefault();
+    } else if (event.key == '=' || event.key == 'Enter') {
         equalPressed();
+        event.preventDefault();
     }
 });
 
