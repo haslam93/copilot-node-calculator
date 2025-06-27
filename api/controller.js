@@ -16,6 +16,9 @@ exports.calculate = function(req, res) {
     'subtract': function(a, b) { return a - b },
     'multiply': function(a, b) { return a * b },
     'divide':   function(a, b) { return a / b },
+    'modulo':   function(a, b) { return a % b },
+    'sqrt':     function(a) { return Math.sqrt(a) },
+    'power2':   function(a) { return Math.pow(a, 2) },
   };
 
   if (!req.query.operation) {
@@ -29,14 +32,18 @@ exports.calculate = function(req, res) {
   }
 
   if (!req.query.operand1 ||
-      !req.query.operand1.match(/^(-)?[0-9\.]+(e(-)?[0-9]+)?$/) ||
+      !req.query.operand1.match(/^(-)?[0-9.]+(e(-)?[0-9]+)?$/) ||
       req.query.operand1.replace(/[-0-9e]/g, '').length > 1) {
     throw new Error("Invalid operand1: " + req.query.operand1);
   }
 
-  if (!req.query.operand2 ||
-      !req.query.operand2.match(/^(-)?[0-9\.]+(e(-)?[0-9]+)?$/) ||
-      req.query.operand2.replace(/[-0-9e]/g, '').length > 1) {
+  // Some operations only require one operand
+  var unaryOperations = ['sqrt', 'power2'];
+  var requiresOperand2 = !unaryOperations.includes(req.query.operation);
+
+  if (requiresOperand2 && (!req.query.operand2 ||
+      !req.query.operand2.match(/^(-)?[0-9.]+(e(-)?[0-9]+)?$/) ||
+      req.query.operand2.replace(/[-0-9e]/g, '').length > 1)) {
     throw new Error("Invalid operand2: " + req.query.operand2);
   }
 

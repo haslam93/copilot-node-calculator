@@ -33,6 +33,15 @@ function calculate(operand1, operand2, operation) {
         case '/':
             uri += "?operation=divide";
             break;
+        case '%':
+            uri += "?operation=modulo";
+            break;
+        case '√':
+            uri += "?operation=sqrt";
+            break;
+        case '^2':
+            uri += "?operation=power2";
+            break;
         default:
             setError();
             return;
@@ -111,9 +120,18 @@ function signPressed() {
 }
 
 function operationPressed(op) {
-    operand1 = getValue();
-    operation = op;
-    state = states.operator;
+    // Check if it's a unary operation
+    if (op === '√' || op === '^2') {
+        // For unary operations, calculate immediately
+        var currentValue = getValue();
+        calculate(currentValue, 0, op); // Pass 0 as dummy operand2
+        state = states.complete;
+    } else {
+        // Binary operation - store operand1 and wait for operand2
+        operand1 = getValue();
+        operation = op;
+        state = states.operator;
+    }
 }
 
 function equalPressed() {
@@ -138,7 +156,7 @@ document.addEventListener('keypress', (event) => {
         numberPressed(event.key);
     } else if (event.key == '.') {
         decimalPressed();
-    } else if (event.key.match(/^[-*+/]$/)) {
+    } else if (event.key.match(/^[-*+/%]$/)) {
         operationPressed(event.key);
     } else if (event.key == '=') {
         equalPressed();
