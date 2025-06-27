@@ -163,6 +163,15 @@ document.addEventListener('keypress', (event) => {
     }
 });
 
+// Add visual feedback for button presses
+function addButtonFeedback(buttonSelector) {
+    const button = document.querySelector(buttonSelector);
+    if (button) {
+        button.classList.add('pressed');
+        setTimeout(() => button.classList.remove('pressed'), 150);
+    }
+}
+
 function getValue() {
     return value;
 }

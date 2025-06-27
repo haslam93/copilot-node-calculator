@@ -281,6 +281,51 @@ BODY {
     box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
 }
 
+/* Enhanced focus management and visual feedback */
+.btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
+    z-index: 10;
+}
+
+/* Active state enhancements */
+.btn.pressed {
+    transform: scale(0.95);
+    background: var(--button-active);
+}
+
+.btn[onclick*="operationPressed"].pressed {
+    background: var(--button-operator-active);
+}
+
+.btn[onclick*="equalPressed"].pressed {
+    background: var(--button-equals-active);
+}
+
+.btn[onclick*="clearPressed"].pressed {
+    background: var(--button-clear-active);
+}
+
+/* Improved mobile touch targets */
+@media (max-width: 767px) {
+    .btn {
+        height: 60px;
+        font-size: 1.25rem;
+        min-height: 44px; /* iOS accessibility requirement */
+    }
+    
+    .calculator {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 1rem;
+    }
+    
+    #result {
+        font-size: 1.75rem;
+        height: 70px;
+    }
+}
+
 /* Loading indicator styling */
 #loading {
     position: absolute;
