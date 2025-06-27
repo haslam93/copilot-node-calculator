@@ -1,166 +1,155 @@
-BODY {
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    background-color: #1b4076;
+/* CSS Custom Properties for Modern Theming */
+:root {
+    --primary-bg: #f0f2f5;
+    --calculator-bg: #ffffff;
+    --display-bg: #1e1e1e;
+    --display-text: #ffffff;
+    --button-bg: #f8f9fa;
+    --button-hover: #e9ecef;
+    --button-active: #dee2e6;
+    --button-operator: #007bff;
+    --button-operator-hover: #0056b3;
+    --button-operator-active: #004085;
+    --button-equals: #28a745;
+    --button-equals-hover: #1e7e34;
+    --button-equals-active: #155724;
+    --button-clear: #dc3545;
+    --button-clear-hover: #c82333;
+    --button-clear-active: #bd2130;
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+    --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    --shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+    --border-radius: 0.5rem;
+    --border-radius-sm: 0.375rem;
+    --transition-duration: 0.15s;
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
 }
 
-@media screen and (min-device-width: 500px) and (min-device-height: 1024px) {
-    BODY {
-        transform: scale(1.75);
-        transform-origin: 50% 0;
-        height: 50%;
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-bg: #121212;
+        --calculator-bg: #1e1e1e;
+        --display-bg: #000000;
+        --display-text: #ffffff;
+        --button-bg: #2d2d2d;
+        --button-hover: #3d3d3d;
+        --button-active: #4d4d4d;
+        --text-primary: #ffffff;
+        --text-secondary: #adb5bd;
     }
 }
 
-@media screen and (min-device-width: 1024px) and (min-device-height: 1366px) {
-    BODY {
-        transform: scale(2.0);
-        transform-origin: 50% 0;
-        height: 50%;
+BODY {
+    height: 100vh;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(135deg, var(--primary-bg) 0%, #e3e6ea 100%);
+    font-family: var(--font-family);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Responsive scaling for larger screens */
+@media screen and (min-width: 768px) {
+    .container {
+        padding: 3rem;
+    }
+    
+    .calculator {
+        width: 360px;
+    }
+    
+    .btn {
+        height: 70px;
+        font-size: 1.5rem;
+    }
+    
+    #result {
+        height: 90px;
+        font-size: 2.5rem;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .container {
+        padding: 4rem;
+    }
+    
+    .calculator {
+        width: 400px;
+    }
+    
+    .btn {
+        height: 80px;
+        font-size: 1.75rem;
+    }
+    
+    #result {
+        height: 100px;
+        font-size: 3rem;
     }
 }
 
 .container {
-    min-width: 250px;
-    min-height: 531px;
-    width: 250px;
-    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
     margin: 0 auto;
     position: relative;
-    background-image: url(background.png);
-    background-size: 300px 531px;
-    background-repeat: no-repeat;
-    background-position: center top;
+    width: auto;
+    min-width: auto;
+    min-height: auto;
 }
 
 #results {
-    position: relative;
-    top: 0;
-    left: 0;
-}
-
-#buttons {
-    position: relative;
+    margin-bottom: 1.5rem;
+    width: 100%;
 }
 
 #result {
-    background-color: #9b9b9b;
-    width: 226px;
-    height: 63px;
+    background: var(--display-bg);
+    color: var(--display-text);
+    width: 100%;
+    height: 80px;
     margin: 0;
-    padding: 0 12px;
-    position: absolute;
-    border: 0;
-    left: 0;
-    top: 32px;
-    font-family: system-ui;
-    font-size: 25px;
+    padding: 1rem;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', monospace;
+    font-size: 2rem;
+    font-weight: 300;
     text-align: right;
-}
-
-/*BUTTON {
-    background-color: #d5d5d5;
-    border: 0;
-    border-radius: 0;
-    width: 55px;
-    height: 42px;
-    position: absolute;
-
-    font-size: 22px;
-}*/
-
-#sign,
-#clear {
-    font-size: 17px;
-}
-
-#clearEntry {
-    font-size: 15px;
-}
-
-#image-icon {
-    left: 0px;
-    top: 202px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    box-shadow: inset var(--shadow-sm);
     position: relative;
-    width: 55px;
-    height: 42px;
-}
-
-.resultchar {
-    display: inline-block;
-    width: 25px;
-    height: 45px;
-    background: url('digits.png') 0 0 no-repeat;
-    background-size: cover;
-    margin-top: 10px;
-    font: 0/0 Arial;
-    color: rgba(255, 255, 255, 0);
-    text-indent: -9999px;
-    z-index: 1;
-}
-
-.digit0 {
-    background-position: 0 0;
-}
-
-.digit1 {
-    background-position: -25px 0;
-}
-
-.digit2 {
-    background-position: -50px 0;
-}
-
-.digit3 {
-    background-position: -75px 0;
-}
-
-.digit4 {
-    background-position: -100px 0;
-}
-
-.digit5 {
-    background-position: -125px 0;
-}
-
-.digit6 {
-    background-position: -150px 0;
-}
-
-.digit7 {
-    background-position: -175px 0;
-}
-
-.digit8 {
-    background-position: -200px 0;
-}
-
-.digit9 {
-    background-position: -225px 0;
-}
-
-.resultchar.decimal {
-    width: 7px;
-    background-position: -250px 0;
-}
-
-.resultchar.negative {
-    background-position: -257px 0;
-    width: 17px;
-}
-
-.resultchar.exponent {
-    background-position: -275px 0;
-    width: 25px;
-}
-
-.box {
+    overflow: hidden;
     box-sizing: border-box;
-    top: 220px;
-    width: 250px;
-    position: absolute;
+}
+
+/* Modern character display - no more sprites */
+.resultchar {
+    display: inline;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+}
+
+.resultchar.negative,
+.resultchar.decimal,
+.resultchar.exponent,
+.digit0, .digit1, .digit2, .digit3, .digit4,
+.digit5, .digit6, .digit7, .digit8, .digit9 {
+    /* All characters use the same modern typography */
+    font-inherit;
+    color: inherit;
 }
 
 .span-2 {
@@ -170,17 +159,188 @@ BODY {
 .calculator-buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    border: 0;
-}
-
-.calculator {
-    max-width: 320px;
+    gap: 0.75rem;
+    border: none;
 }
 
 .btn {
-    font-size: 1em;
-    height: 45px;
-    border: 1px solid black;
-    background-color: #d5d5d5;
-    margin: 4px;
+    font-family: var(--font-family);
+    font-size: 1.25rem;
+    font-weight: 500;
+    height: 60px;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    background: var(--button-bg);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-duration) ease;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn:hover {
+    background: var(--button-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn:active {
+    background: var(--button-active);
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Ripple effect */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+.btn:active::before {
+    width: 200px;
+    height: 200px;
+}
+
+/* Button type specific styling */
+.btn[onclick*="operationPressed"] {
+    background: var(--button-operator);
+    color: white;
+}
+
+.btn[onclick*="operationPressed"]:hover {
+    background: var(--button-operator-hover);
+}
+
+.btn[onclick*="operationPressed"]:active {
+    background: var(--button-operator-active);
+}
+
+.btn[onclick*="equalPressed"] {
+    background: var(--button-equals);
+    color: white;
+}
+
+.btn[onclick*="equalPressed"]:hover {
+    background: var(--button-equals-hover);
+}
+
+.btn[onclick*="equalPressed"]:active {
+    background: var(--button-equals-active);
+}
+
+.btn[onclick*="clearPressed"] {
+    background: var(--button-clear);
+    color: white;
+}
+
+.btn[onclick*="clearPressed"]:hover {
+    background: var(--button-clear-hover);
+}
+
+.btn[onclick*="clearPressed"]:active {
+    background: var(--button-clear-active);
+}
+
+.calculator {
+    background: var(--calculator-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    padding: 1.5rem;
+    width: 320px;
+    max-width: 90vw;
+    position: relative;
+    transition: transform var(--transition-duration) ease;
+}
+
+.calculator:hover {
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced focus management and visual feedback */
+.btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
+    z-index: 10;
+}
+
+/* Active state enhancements */
+.btn.pressed {
+    transform: scale(0.95);
+    background: var(--button-active);
+}
+
+.btn[onclick*="operationPressed"].pressed {
+    background: var(--button-operator-active);
+}
+
+.btn[onclick*="equalPressed"].pressed {
+    background: var(--button-equals-active);
+}
+
+.btn[onclick*="clearPressed"].pressed {
+    background: var(--button-clear-active);
+}
+
+/* Improved mobile touch targets */
+@media (max-width: 767px) {
+    .btn {
+        height: 60px;
+        font-size: 1.25rem;
+        min-height: 44px; /* iOS accessibility requirement */
+    }
+    
+    .calculator {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 1rem;
+    }
+    
+    #result {
+        font-size: 1.75rem;
+        height: 70px;
+    }
+}
+
+/* Loading indicator styling */
+#loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 123, 255, 0.2);
+    border-top: 4px solid var(--button-operator);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
