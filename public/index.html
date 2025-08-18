@@ -16,9 +16,10 @@
       <div class="box">
         <div class="calculator">
           <div class="calculator-buttons">
-            <button class="btn span-2"></button>
             <button class="btn" onClick="clearPressed()">C</button>
             <button class="btn" onClick="clearPressed()">CE</button>
+            <button class="btn" onClick="operationPressed('%')">%</button>
+            <button class="btn" onClick="operationPressed('√')">√</button>
 
             <button class="btn" onClick="numberPressed(7)">7</button>
             <button class="btn" onClick="numberPressed(8)">8</button>
@@ -37,14 +38,10 @@
 
             <button class="btn" onClick="numberPressed(0)">0</button>
             <button class="btn" onClick="decimalPressed()">.</button>
-            <button class="btn" onClick="operationPressed('+')">+</button>
-            <button class="btn" onClick="equalPressed()">=</button>
-
-            <!-- TODO: Buttons -->
-            <button class="btn" onClick="operationPressed('%')">%</button>
-            <button class="btn" onClick="operationPressed('√')">√</button>
             <button class="btn" onClick="operationPressed('^2')">x²</button>
-            <button class="btn"></button>
+            <button class="btn" onClick="operationPressed('+')">+</button>
+
+            <button class="btn span-2" onClick="equalPressed()">=</button>
           </div>
         </div>
       </div>
