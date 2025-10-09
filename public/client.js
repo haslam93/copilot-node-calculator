@@ -33,6 +33,12 @@ function calculate(operand1, operand2, operation) {
         case '/':
             uri += "?operation=divide";
             break;
+        case '^':
+            uri += "?operation=power";
+            break;
+        case '√':
+            uri += "?operation=sqrt";
+            break;
         default:
             setError();
             return;
@@ -132,6 +138,31 @@ function equalPressed() {
     calculate(operand1, operand2, operation);
 }
 
+// Theme toggle functionality
+function initThemeToggle() {
+    // Check for saved theme preference or default to system preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.body.setAttribute('data-theme', savedTheme);
+    }
+}
+
+function toggleTheme() {
+    const currentTheme = document.body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+}
+
+// Initialize theme on load
+if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initThemeToggle);
+    } else {
+        initThemeToggle();
+    }
+}
+
 // Enhanced keyboard support
 document.addEventListener('keydown', (event) => {
     // Handle keydown for special keys
@@ -154,7 +185,7 @@ document.addEventListener('keypress', (event) => {
     } else if (event.key == '.') {
         decimalPressed();
         event.preventDefault();
-    } else if (event.key.match(/^[-*+/]$/)) {
+    } else if (event.key.match(/^[-*+/^]$/)) {
         operationPressed(event.key);
         event.preventDefault();
     } else if (event.key == '=' || event.key == 'Enter') {
