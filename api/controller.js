@@ -16,7 +16,16 @@ exports.calculate = function(req, res) {
     'subtract': function(a, b) { return a - b },
     'multiply': function(a, b) { return a * b },
     'divide':   function(a, b) { return a / b },
+    'power':    function(a, b) { return Math.pow(a, b) },
+    'sqrt':     function(a) { return Math.sqrt(a) },
+    'sin':      function(a) { return Math.sin(a) },
+    'cos':      function(a) { return Math.cos(a) },
+    'tan':      function(a) { return Math.tan(a) },
+    'log':      function(a) { return Math.log10(a) },
+    'ln':       function(a) { return Math.log(a) },
   };
+
+  var singleOperandOps = ['sqrt', 'sin', 'cos', 'tan', 'log', 'ln'];
 
   if (!req.query.operation) {
     throw new Error("Unspecified operation");
@@ -29,16 +38,24 @@ exports.calculate = function(req, res) {
   }
 
   if (!req.query.operand1 ||
-      !req.query.operand1.match(/^(-)?[0-9\.]+(e(-)?[0-9]+)?$/) ||
+      !req.query.operand1.match(/^(-)?[0-9.]+(e(-)?[0-9]+)?$/) ||
       req.query.operand1.replace(/[-0-9e]/g, '').length > 1) {
     throw new Error("Invalid operand1: " + req.query.operand1);
   }
 
-  if (!req.query.operand2 ||
-      !req.query.operand2.match(/^(-)?[0-9\.]+(e(-)?[0-9]+)?$/) ||
-      req.query.operand2.replace(/[-0-9e]/g, '').length > 1) {
-    throw new Error("Invalid operand2: " + req.query.operand2);
+  // Only validate operand2 for operations that require two operands
+  if (!singleOperandOps.includes(req.query.operation)) {
+    if (!req.query.operand2 ||
+        !req.query.operand2.match(/^(-)?[0-9.]+(e(-)?[0-9]+)?$/) ||
+        req.query.operand2.replace(/[-0-9e]/g, '').length > 1) {
+      throw new Error("Invalid operand2: " + req.query.operand2);
+    }
   }
 
-  res.json({ result: operation(req.query.operand1, req.query.operand2) });
+  // Call operation with appropriate number of operands
+  var result = singleOperandOps.includes(req.query.operation)
+    ? operation(req.query.operand1)
+    : operation(req.query.operand1, req.query.operand2);
+
+  res.json({ result: result });
 };

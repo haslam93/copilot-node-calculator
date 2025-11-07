@@ -16,6 +16,9 @@ var operand1 = 0;
 var operand2 = 0;
 var operation = null;
 
+// Single operand operations that execute immediately
+var SINGLE_OPERAND_OPS = ['√', 'sin', 'cos', 'tan', 'log', 'ln'];
+
 function calculate(operand1, operand2, operation) {
     var uri = location.origin + "/arithmetic";
 
@@ -33,13 +36,38 @@ function calculate(operand1, operand2, operation) {
         case '/':
             uri += "?operation=divide";
             break;
+        case '^':
+            uri += "?operation=power";
+            break;
+        case '√':
+            uri += "?operation=sqrt";
+            break;
+        case 'sin':
+            uri += "?operation=sin";
+            break;
+        case 'cos':
+            uri += "?operation=cos";
+            break;
+        case 'tan':
+            uri += "?operation=tan";
+            break;
+        case 'log':
+            uri += "?operation=log";
+            break;
+        case 'ln':
+            uri += "?operation=ln";
+            break;
         default:
             setError();
             return;
     }
 
     uri += "&operand1=" + encodeURIComponent(operand1);
-    uri += "&operand2=" + encodeURIComponent(operand2);
+    
+    // Only add operand2 for binary operations
+    if (!SINGLE_OPERAND_OPS.includes(operation)) {
+        uri += "&operand2=" + encodeURIComponent(operand2);
+    }
 
     setLoading(true);
 
@@ -114,6 +142,15 @@ function operationPressed(op) {
     operand1 = getValue();
     operation = op;
     state = states.operator;
+}
+
+function scientificPressed(op) {
+    // Single operand operations execute immediately
+    if (SINGLE_OPERAND_OPS.includes(op)) {
+        operand1 = getValue();
+        calculate(operand1, null, op);
+        state = states.complete;
+    }
 }
 
 function equalPressed() {

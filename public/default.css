@@ -1,44 +1,44 @@
-/* CSS Custom Properties for Modern Theming */
+/* CSS Custom Properties for The Green Theme of the Shire */
 :root {
-    --primary-bg: #f0f2f5;
-    --calculator-bg: #ffffff;
-    --display-bg: #1e1e1e;
-    --display-text: #ffffff;
-    --button-bg: #f8f9fa;
-    --button-hover: #e9ecef;
-    --button-active: #dee2e6;
-    --button-operator: #007bff;
-    --button-operator-hover: #0056b3;
-    --button-operator-active: #004085;
+    --primary-bg: #d4f1d4;
+    --calculator-bg: #f0fff0;
+    --display-bg: #1a4d1a;
+    --display-text: #c8ffc8;
+    --button-bg: #e8f5e8;
+    --button-hover: #c8e6c8;
+    --button-active: #a8d6a8;
+    --button-operator: #2d8659;
+    --button-operator-hover: #257047;
+    --button-operator-active: #1d5a38;
     --button-equals: #28a745;
     --button-equals-hover: #1e7e34;
     --button-equals-active: #155724;
     --button-clear: #dc3545;
     --button-clear-hover: #c82333;
     --button-clear-active: #bd2130;
-    --text-primary: #212529;
-    --text-secondary: #6c757d;
-    --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    --shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+    --text-primary: #1a4d1a;
+    --text-secondary: #4a7c4a;
+    --shadow-sm: 0 0.125rem 0.25rem rgba(0, 100, 0, 0.1);
+    --shadow-md: 0 0.5rem 1rem rgba(0, 100, 0, 0.2);
+    --shadow-lg: 0 1rem 3rem rgba(0, 100, 0, 0.25);
     --border-radius: 0.5rem;
     --border-radius-sm: 0.375rem;
     --transition-duration: 0.15s;
     --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
 }
 
-/* Dark mode support */
+/* Dark mode support - Green theme of Fangorn Forest */
 @media (prefers-color-scheme: dark) {
     :root {
-        --primary-bg: #121212;
-        --calculator-bg: #1e1e1e;
-        --display-bg: #000000;
-        --display-text: #ffffff;
-        --button-bg: #2d2d2d;
-        --button-hover: #3d3d3d;
-        --button-active: #4d4d4d;
-        --text-primary: #ffffff;
-        --text-secondary: #adb5bd;
+        --primary-bg: #0a2f0a;
+        --calculator-bg: #1a3d1a;
+        --display-bg: #0d1f0d;
+        --display-text: #90ee90;
+        --button-bg: #2d4d2d;
+        --button-hover: #3d6d3d;
+        --button-active: #4d8d4d;
+        --text-primary: #90ee90;
+        --text-secondary: #6b9d6b;
     }
 }
 
@@ -47,7 +47,7 @@ BODY {
     width: 100vw;
     padding: 0;
     margin: 0;
-    background: linear-gradient(135deg, var(--primary-bg) 0%, #e3e6ea 100%);
+    background: linear-gradient(135deg, var(--primary-bg) 0%, #b8e6b8 100%);
     font-family: var(--font-family);
     display: flex;
     justify-content: center;
@@ -226,7 +226,21 @@ BODY {
     height: 200px;
 }
 
-/* Button type specific styling */
+/* Button type specific styling - Scientific buttons like the leaves of Lothlórien */
+.btn-scientific {
+    background: #4a9d5f;
+    color: white;
+    font-size: 1rem;
+}
+
+.btn-scientific:hover {
+    background: #3d8550;
+}
+
+.btn-scientific:active {
+    background: #2f6d40;
+}
+
 .btn[onclick*="operationPressed"] {
     background: var(--button-operator);
     color: white;
