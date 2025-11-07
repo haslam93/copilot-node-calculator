@@ -52,5 +52,10 @@ exports.calculate = function(req, res) {
     }
   }
 
-  res.json({ result: operation(req.query.operand1, req.query.operand2) });
+  // Call operation with appropriate number of operands
+  var result = singleOperandOps.includes(req.query.operation)
+    ? operation(req.query.operand1)
+    : operation(req.query.operand1, req.query.operand2);
+
+  res.json({ result: result });
 };

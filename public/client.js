@@ -16,6 +16,9 @@ var operand1 = 0;
 var operand2 = 0;
 var operation = null;
 
+// Single operand operations that execute immediately
+var SINGLE_OPERAND_OPS = ['√', 'sin', 'cos', 'tan', 'log', 'ln'];
+
 function calculate(operand1, operand2, operation) {
     var uri = location.origin + "/arithmetic";
 
@@ -62,8 +65,7 @@ function calculate(operand1, operand2, operation) {
     uri += "&operand1=" + encodeURIComponent(operand1);
     
     // Only add operand2 for binary operations
-    var singleOperandOps = ['√', 'sin', 'cos', 'tan', 'log', 'ln'];
-    if (!singleOperandOps.includes(operation)) {
+    if (!SINGLE_OPERAND_OPS.includes(operation)) {
         uri += "&operand2=" + encodeURIComponent(operand2);
     }
 
@@ -144,8 +146,7 @@ function operationPressed(op) {
 
 function scientificPressed(op) {
     // Single operand operations execute immediately
-    var singleOperandOps = ['√', 'sin', 'cos', 'tan', 'log', 'ln'];
-    if (singleOperandOps.includes(op)) {
+    if (SINGLE_OPERAND_OPS.includes(op)) {
         operand1 = getValue();
         calculate(operand1, null, op);
         state = states.complete;
