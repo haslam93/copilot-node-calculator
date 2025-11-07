@@ -1,14 +1,14 @@
 <html lang="en">
   <head>
-    <title>Modern Calculator</title>
+    <title>Scientific Palantír of Rivendell</title>
     <link rel="stylesheet" href="default.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="description" content="A modern, accessible calculator application">
+    <meta name="description" content="A scientific calculator forged in the halls of Rivendell">
     <script src="client.js"></script>
   </head>
   <body onLoad="setValue(0)">
     <div class="container">
-      <main class="calculator" role="application" aria-label="Calculator">
+      <main class="calculator" role="application" aria-label="Scientific Calculator">
         <div id="results">
           <div id="result" role="textbox" aria-label="Calculator display" aria-live="polite" aria-readonly="true" tabindex="0"><span class="digit0">0</span></div>
         </div>
@@ -16,10 +16,19 @@
         <div id="loading" style="visibility:hidden" aria-hidden="true"></div>
 
         <div class="calculator-buttons" role="grid" aria-label="Calculator buttons">
-          <button class="btn span-2" aria-label="Empty button" disabled></button>
-          <button class="btn" onClick="clearPressed()" aria-label="Clear all">C</button>
-          <button class="btn" onClick="clearPressed()" aria-label="Clear entry">CE</button>
+          <!-- Scientific functions row -->
+          <button class="btn btn-scientific" onClick="scientificPressed('sin')" aria-label="Sine">sin</button>
+          <button class="btn btn-scientific" onClick="scientificPressed('cos')" aria-label="Cosine">cos</button>
+          <button class="btn btn-scientific" onClick="scientificPressed('tan')" aria-label="Tangent">tan</button>
+          <button class="btn btn-scientific" onClick="operationPressed('^')" aria-label="Power">x^y</button>
 
+          <!-- More scientific functions row -->
+          <button class="btn btn-scientific" onClick="scientificPressed('√')" aria-label="Square root">√</button>
+          <button class="btn btn-scientific" onClick="scientificPressed('log')" aria-label="Logarithm base 10">log</button>
+          <button class="btn btn-scientific" onClick="scientificPressed('ln')" aria-label="Natural logarithm">ln</button>
+          <button class="btn" onClick="clearPressed()" aria-label="Clear all">C</button>
+
+          <!-- Number pad and basic operations -->
           <button class="btn" onClick="numberPressed(7)" aria-label="Seven">7</button>
           <button class="btn" onClick="numberPressed(8)" aria-label="Eight">8</button>
           <button class="btn" onClick="numberPressed(9)" aria-label="Nine">9</button>

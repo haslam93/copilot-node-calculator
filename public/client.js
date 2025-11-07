@@ -33,13 +33,39 @@ function calculate(operand1, operand2, operation) {
         case '/':
             uri += "?operation=divide";
             break;
+        case '^':
+            uri += "?operation=power";
+            break;
+        case '√':
+            uri += "?operation=sqrt";
+            break;
+        case 'sin':
+            uri += "?operation=sin";
+            break;
+        case 'cos':
+            uri += "?operation=cos";
+            break;
+        case 'tan':
+            uri += "?operation=tan";
+            break;
+        case 'log':
+            uri += "?operation=log";
+            break;
+        case 'ln':
+            uri += "?operation=ln";
+            break;
         default:
             setError();
             return;
     }
 
     uri += "&operand1=" + encodeURIComponent(operand1);
-    uri += "&operand2=" + encodeURIComponent(operand2);
+    
+    // Only add operand2 for binary operations
+    var singleOperandOps = ['√', 'sin', 'cos', 'tan', 'log', 'ln'];
+    if (!singleOperandOps.includes(operation)) {
+        uri += "&operand2=" + encodeURIComponent(operand2);
+    }
 
     setLoading(true);
 
@@ -114,6 +140,16 @@ function operationPressed(op) {
     operand1 = getValue();
     operation = op;
     state = states.operator;
+}
+
+function scientificPressed(op) {
+    // Single operand operations execute immediately
+    var singleOperandOps = ['√', 'sin', 'cos', 'tan', 'log', 'ln'];
+    if (singleOperandOps.includes(op)) {
+        operand1 = getValue();
+        calculate(operand1, null, op);
+        state = states.complete;
+    }
 }
 
 function equalPressed() {

@@ -227,6 +227,20 @@ BODY {
 }
 
 /* Button type specific styling */
+.btn-scientific {
+    background: #6c757d;
+    color: white;
+    font-size: 1rem;
+}
+
+.btn-scientific:hover {
+    background: #5a6268;
+}
+
+.btn-scientific:active {
+    background: #545b62;
+}
+
 .btn[onclick*="operationPressed"] {
     background: var(--button-operator);
     color: white;
