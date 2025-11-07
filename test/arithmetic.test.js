@@ -95,6 +95,16 @@ describe('Arithmetic', function () {
 
 // TODO: Challenge #1
  
+    describe('Subtraction', function () {
+        it('subtracts a positive integer from a positive integer', function (done) {
+            request.get('/arithmetic?operation=subtract&operand1=42&operand2=21')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 21 });
+                    done();
+                });
+        });
+    });
 
     describe('Multiplication', function () {
         it('multiplies two positive integers', function (done) {
@@ -201,6 +211,49 @@ describe('Arithmetic', function () {
                 .expect(200)
                 .end(function (err, res) {
                     expect(res.body).to.eql({ result: null });
+                    done();
+                });
+        });
+    });
+
+    describe('Modulo', function () {
+        it('computes modulo of two positive integers', function (done) {
+            request.get('/arithmetic?operation=modulo&operand1=42&operand2=5')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 2 });
+                    done();
+                });
+        });
+        it('computes modulo with a result of zero', function (done) {
+            request.get('/arithmetic?operation=modulo&operand1=42&operand2=21')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 0 });
+                    done();
+                });
+        });
+        it('computes modulo of a negative integer', function (done) {
+            request.get('/arithmetic?operation=modulo&operand1=-42&operand2=5')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: -2 });
+                    done();
+                });
+        });
+        it('computes modulo with floating point numbers', function (done) {
+            request.get('/arithmetic?operation=modulo&operand1=5.5&operand2=2')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 1.5 });
+                    done();
+                });
+        });
+        it('computes modulo where divisor is larger than dividend', function (done) {
+            request.get('/arithmetic?operation=modulo&operand1=5&operand2=42')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 5 });
                     done();
                 });
         });
