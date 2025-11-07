@@ -205,4 +205,63 @@ describe('Arithmetic', function () {
                 });
         });
     });
+
+    describe('Scientific Operations - Power of the Istari', function () {
+        it('raises number to power', function (done) {
+            request.get('/arithmetic?operation=power&operand1=2&operand2=3')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 8 });
+                    done();
+                });
+        });
+        it('calculates square root', function (done) {
+            request.get('/arithmetic?operation=sqrt&operand1=9')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 3 });
+                    done();
+                });
+        });
+        it('calculates sine of zero', function (done) {
+            request.get('/arithmetic?operation=sin&operand1=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 0 });
+                    done();
+                });
+        });
+        it('calculates cosine of zero', function (done) {
+            request.get('/arithmetic?operation=cos&operand1=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 1 });
+                    done();
+                });
+        });
+        it('calculates tangent of zero', function (done) {
+            request.get('/arithmetic?operation=tan&operand1=0')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 0 });
+                    done();
+                });
+        });
+        it('calculates log10 of 100', function (done) {
+            request.get('/arithmetic?operation=log&operand1=100')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body).to.eql({ result: 2 });
+                    done();
+                });
+        });
+        it('calculates natural log of e', function (done) {
+            request.get('/arithmetic?operation=ln&operand1=2.718281828459045')
+                .expect(200)
+                .end(function (err, res) {
+                    expect(res.body.result).to.be.closeTo(1, 0.0001);
+                    done();
+                });
+        });
+    });
 });
