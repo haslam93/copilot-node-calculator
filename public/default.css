@@ -42,6 +42,40 @@
     }
 }
 
+/* Manual theme override */
+body[data-theme="dark"] {
+    --primary-bg: #121212;
+    --calculator-bg: #1e1e1e;
+    --display-bg: #000000;
+    --display-text: #ffffff;
+    --button-bg: #2d2d2d;
+    --button-hover: #3d3d3d;
+    --button-active: #4d4d4d;
+    --text-primary: #ffffff;
+    --text-secondary: #adb5bd;
+}
+
+body[data-theme="light"] {
+    --primary-bg: #f0f2f5;
+    --calculator-bg: #ffffff;
+    --display-bg: #1e1e1e;
+    --display-text: #ffffff;
+    --button-bg: #f8f9fa;
+    --button-hover: #e9ecef;
+    --button-active: #dee2e6;
+    --button-operator: #007bff;
+    --button-operator-hover: #0056b3;
+    --button-operator-active: #004085;
+    --button-equals: #28a745;
+    --button-equals-hover: #1e7e34;
+    --button-equals-active: #155724;
+    --button-clear: #dc3545;
+    --button-clear-hover: #c82333;
+    --button-clear-active: #bd2130;
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+}
+
 BODY {
     height: 100vh;
     width: 100vw;
@@ -343,4 +377,47 @@ BODY {
 @keyframes spin {
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Theme toggle button styling */
+.theme-toggle-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.theme-toggle-btn {
+    background: var(--button-bg);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-duration) ease;
+    box-shadow: var(--shadow-sm);
+    font-size: 1.5rem;
+    padding: 0;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--button-hover);
+    transform: scale(1.1);
+    box-shadow: var(--shadow-md);
+}
+
+.theme-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+.theme-toggle-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
+}
+
+.theme-icon {
+    user-select: none;
 }
