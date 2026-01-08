@@ -10,6 +10,9 @@
     --button-operator: #007bff;
     --button-operator-hover: #0056b3;
     --button-operator-active: #004085;
+    --button-scientific: #6f42c1;
+    --button-scientific-hover: #5a32a3;
+    --button-scientific-active: #4c2a8a;
     --button-equals: #28a745;
     --button-equals-hover: #1e7e34;
     --button-equals-active: #155724;
@@ -40,6 +43,32 @@
         --text-primary: #ffffff;
         --text-secondary: #adb5bd;
     }
+}
+
+/* Light theme override */
+body.light-theme {
+    --primary-bg: #f0f2f5;
+    --calculator-bg: #ffffff;
+    --display-bg: #1e1e1e;
+    --display-text: #ffffff;
+    --button-bg: #f8f9fa;
+    --button-hover: #e9ecef;
+    --button-active: #dee2e6;
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+}
+
+/* Dark theme override */
+body.dark-theme {
+    --primary-bg: #121212;
+    --calculator-bg: #1e1e1e;
+    --display-bg: #000000;
+    --display-text: #ffffff;
+    --button-bg: #2d2d2d;
+    --button-hover: #3d3d3d;
+    --button-active: #4d4d4d;
+    --text-primary: #ffffff;
+    --text-secondary: #adb5bd;
 }
 
 BODY {
@@ -106,6 +135,36 @@ BODY {
     width: auto;
     min-width: auto;
     min-height: auto;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--button-bg);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-duration) ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.theme-toggle:hover {
+    background: var(--button-hover);
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
 }
 
 #results {
@@ -266,6 +325,21 @@ BODY {
     background: var(--button-clear-active);
 }
 
+/* Scientific button styling */
+.btn-scientific {
+    background: var(--button-scientific);
+    color: white;
+    font-size: 1rem;
+}
+
+.btn-scientific:hover {
+    background: var(--button-scientific-hover);
+}
+
+.btn-scientific:active {
+    background: var(--button-scientific-active);
+}
+
 .calculator {
     background: var(--calculator-bg);
     border-radius: var(--border-radius);
@@ -304,6 +378,10 @@ BODY {
 
 .btn[onclick*="clearPressed"].pressed {
     background: var(--button-clear-active);
+}
+
+.btn-scientific.pressed {
+    background: var(--button-scientific-active);
 }
 
 /* Improved mobile touch targets */

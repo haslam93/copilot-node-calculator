@@ -16,6 +16,12 @@ exports.calculate = function(req, res) {
     'subtract': function(a, b) { return a - b },
     'multiply': function(a, b) { return a * b },
     'divide':   function(a, b) { return a / b },
+    'sin':      function(a) { return Math.sin(a) },
+    'cos':      function(a) { return Math.cos(a) },
+    'tan':      function(a) { return Math.tan(a) },
+    'sqrt':     function(a) { return Math.sqrt(a) },
+    'power':    function(a, b) { return Math.pow(a, b) },
+    'log':      function(a) { return Math.log10(a) },
   };
 
   if (!req.query.operation) {
@@ -29,16 +35,23 @@ exports.calculate = function(req, res) {
   }
 
   if (!req.query.operand1 ||
-      !req.query.operand1.match(/^(-)?[0-9\.]+(e(-)?[0-9]+)?$/) ||
+      !req.query.operand1.match(/^(-)?[0-9.]+(e(-)?[0-9]+)?$/) ||
       req.query.operand1.replace(/[-0-9e]/g, '').length > 1) {
     throw new Error("Invalid operand1: " + req.query.operand1);
   }
 
-  if (!req.query.operand2 ||
-      !req.query.operand2.match(/^(-)?[0-9\.]+(e(-)?[0-9]+)?$/) ||
-      req.query.operand2.replace(/[-0-9e]/g, '').length > 1) {
-    throw new Error("Invalid operand2: " + req.query.operand2);
-  }
+  // Check if operation requires two operands
+  var singleOperandOps = ['sin', 'cos', 'tan', 'sqrt', 'log'];
+  var requiresTwoOperands = singleOperandOps.indexOf(req.query.operation) === -1;
 
-  res.json({ result: operation(req.query.operand1, req.query.operand2) });
+  if (requiresTwoOperands) {
+    if (!req.query.operand2 ||
+        !req.query.operand2.match(/^(-)?[0-9.]+(e(-)?[0-9]+)?$/) ||
+        req.query.operand2.replace(/[-0-9e]/g, '').length > 1) {
+      throw new Error("Invalid operand2: " + req.query.operand2);
+    }
+    res.json({ result: operation(req.query.operand1, req.query.operand2) });
+  } else {
+    res.json({ result: operation(req.query.operand1) });
+  }
 };

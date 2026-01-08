@@ -8,6 +8,9 @@
   </head>
   <body onLoad="setValue(0)">
     <div class="container">
+      <button class="theme-toggle" onClick="toggleTheme()" aria-label="Toggle dark/light mode">
+        <span class="theme-icon">🌙</span>
+      </button>
       <main class="calculator" role="application" aria-label="Calculator">
         <div id="results">
           <div id="result" role="textbox" aria-label="Calculator display" aria-live="polite" aria-readonly="true" tabindex="0"><span class="digit0">0</span></div>
@@ -16,7 +19,13 @@
         <div id="loading" style="visibility:hidden" aria-hidden="true"></div>
 
         <div class="calculator-buttons" role="grid" aria-label="Calculator buttons">
-          <button class="btn span-2" aria-label="Empty button" disabled></button>
+          <button class="btn btn-scientific" onClick="scientificOperation('sin')" aria-label="Sine">sin</button>
+          <button class="btn btn-scientific" onClick="scientificOperation('cos')" aria-label="Cosine">cos</button>
+          <button class="btn btn-scientific" onClick="scientificOperation('tan')" aria-label="Tangent">tan</button>
+          <button class="btn btn-scientific" onClick="scientificOperation('sqrt')" aria-label="Square root">√</button>
+
+          <button class="btn btn-scientific" onClick="scientificOperation('log')" aria-label="Logarithm">log</button>
+          <button class="btn btn-scientific" onClick="operationPressed('power')" aria-label="Power">x^y</button>
           <button class="btn" onClick="clearPressed()" aria-label="Clear all">C</button>
           <button class="btn" onClick="clearPressed()" aria-label="Clear entry">CE</button>
 
