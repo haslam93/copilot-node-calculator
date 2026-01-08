@@ -33,13 +33,28 @@ function calculate(operand1, operand2, operation) {
         case '/':
             uri += "?operation=divide";
             break;
+        case 'power':
+            uri += "?operation=power";
+            break;
+        case 'sin':
+        case 'cos':
+        case 'tan':
+        case 'sqrt':
+        case 'log':
+            uri += "?operation=" + operation;
+            break;
         default:
             setError();
             return;
     }
 
     uri += "&operand1=" + encodeURIComponent(operand1);
-    uri += "&operand2=" + encodeURIComponent(operand2);
+    
+    // Only add operand2 for operations that need it
+    var singleOperandOps = ['sin', 'cos', 'tan', 'sqrt', 'log'];
+    if (singleOperandOps.indexOf(operation) === -1) {
+        uri += "&operand2=" + encodeURIComponent(operand2);
+    }
 
     setLoading(true);
 
@@ -130,6 +145,44 @@ function equalPressed() {
     }
 
     calculate(operand1, operand2, operation);
+}
+
+function scientificOperation(op) {
+    // Scientific operations work on the current value immediately
+    var currentValue = getValue();
+    
+    // Save state for potential chaining
+    operand1 = currentValue;
+    operation = op;
+    state = states.complete;
+    
+    // Calculate immediately (operand2 not needed for these operations)
+    calculate(currentValue, null, op);
+}
+
+function toggleTheme() {
+    var body = document.body;
+    var themeIcon = document.querySelector('.theme-icon');
+    
+    if (body.classList.contains('dark-theme')) {
+        body.classList.remove('dark-theme');
+        body.classList.add('light-theme');
+        themeIcon.textContent = '🌙';
+    } else if (body.classList.contains('light-theme')) {
+        body.classList.remove('light-theme');
+        body.classList.add('dark-theme');
+        themeIcon.textContent = '☀️';
+    } else {
+        // First time toggle - check system preference
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDark) {
+            body.classList.add('light-theme');
+            themeIcon.textContent = '🌙';
+        } else {
+            body.classList.add('dark-theme');
+            themeIcon.textContent = '☀️';
+        }
+    }
 }
 
 // Enhanced keyboard support

@@ -205,4 +205,88 @@ describe('Arithmetic', function () {
                 });
         });
     });
+
+    describe('Scientific Operations', function () {
+        describe('Sine', function () {
+            it('calculates sine of 0', function (done) {
+                request.get('/arithmetic?operation=sin&operand1=0')
+                    .expect(200)
+                    .end(function (err, res) {
+                        expect(res.body).to.eql({ result: 0 });
+                        done();
+                    });
+            });
+        });
+
+        describe('Cosine', function () {
+            it('calculates cosine of 0', function (done) {
+                request.get('/arithmetic?operation=cos&operand1=0')
+                    .expect(200)
+                    .end(function (err, res) {
+                        expect(res.body).to.eql({ result: 1 });
+                        done();
+                    });
+            });
+        });
+
+        describe('Square Root', function () {
+            it('calculates square root of 9', function (done) {
+                request.get('/arithmetic?operation=sqrt&operand1=9')
+                    .expect(200)
+                    .end(function (err, res) {
+                        expect(res.body).to.eql({ result: 3 });
+                        done();
+                    });
+            });
+
+            it('calculates square root of 0', function (done) {
+                request.get('/arithmetic?operation=sqrt&operand1=0')
+                    .expect(200)
+                    .end(function (err, res) {
+                        expect(res.body).to.eql({ result: 0 });
+                        done();
+                    });
+            });
+        });
+
+        describe('Power', function () {
+            it('calculates 2 to the power of 3', function (done) {
+                request.get('/arithmetic?operation=power&operand1=2&operand2=3')
+                    .expect(200)
+                    .end(function (err, res) {
+                        expect(res.body).to.eql({ result: 8 });
+                        done();
+                    });
+            });
+
+            it('calculates 10 to the power of 2', function (done) {
+                request.get('/arithmetic?operation=power&operand1=10&operand2=2')
+                    .expect(200)
+                    .end(function (err, res) {
+                        expect(res.body).to.eql({ result: 100 });
+                        done();
+                    });
+            });
+        });
+
+        describe('Logarithm', function () {
+            it('calculates log of 10', function (done) {
+                request.get('/arithmetic?operation=log&operand1=10')
+                    .expect(200)
+                    .end(function (err, res) {
+                        expect(res.body).to.eql({ result: 1 });
+                        done();
+                    });
+            });
+
+            it('calculates log of 100', function (done) {
+                request.get('/arithmetic?operation=log&operand1=100')
+                    .expect(200)
+                    .end(function (err, res) {
+                        expect(res.body).to.eql({ result: 2 });
+                        done();
+                    });
+            });
+        });
+    });
 });
