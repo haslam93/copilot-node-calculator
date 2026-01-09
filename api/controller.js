@@ -16,6 +16,7 @@ exports.calculate = function(req, res) {
     'subtract': function(a, b) { return a - b },
     'multiply': function(a, b) { return a * b },
     'divide':   function(a, b) { return a / b },
+    modulo':   function(a, b) { return a % b },                 // Modulo
   };
 
   if (!req.query.operation) {
