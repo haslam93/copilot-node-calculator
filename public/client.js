@@ -16,7 +16,129 @@ var operand1 = 0;
 var operand2 = 0;
 var operation = null;
 
+// Theme toggle functionality
+function toggleTheme() {
+    const body = document.body;
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    if (body.classList.contains('dark-theme')) {
+        body.classList.remove('dark-theme');
+        themeIcon.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+    } else {
+        body.classList.add('dark-theme');
+        themeIcon.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
+// Load saved theme on page load
+window.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+        const themeIcon = document.querySelector('.theme-icon');
+        if (themeIcon) {
+            themeIcon.textContent = '☀️';
+        }
+    }
+});
+
+// Scientific calculator functions
+function scientificPressed(func) {
+    var currentValue = getValue();
+    var result;
+    
+    switch(func) {
+        case 'sin':
+            result = Math.sin(currentValue * Math.PI / 180); // Convert to radians
+            break;
+        case 'cos':
+            result = Math.cos(currentValue * Math.PI / 180);
+            break;
+        case 'tan':
+            result = Math.tan(currentValue * Math.PI / 180);
+            break;
+        case 'log':
+            result = Math.log10(currentValue);
+            break;
+        case 'ln':
+            result = Math.log(currentValue);
+            break;
+        case 'sqrt':
+            result = Math.sqrt(currentValue);
+            break;
+        case 'square':
+            result = currentValue * currentValue;
+            break;
+        case 'pow':
+            // Store for power operation
+            operand1 = currentValue;
+            operation = '^';
+            state = states.operator;
+            return;
+        case 'exp':
+            result = Math.exp(currentValue);
+            break;
+        case 'abs':
+            result = Math.abs(currentValue);
+            break;
+        case 'inverse':
+            result = 1 / currentValue;
+            break;
+        case 'percent':
+            result = currentValue / 100;
+            break;
+        default:
+            setError();
+            return;
+    }
+    
+    setValue(result);
+    state = states.complete;
+}
+
+function constantPressed(constant) {
+    var value;
+    
+    switch(constant) {
+        case 'pi':
+            value = Math.PI;
+            break;
+        case 'e':
+            value = Math.E;
+            break;
+        default:
+            return;
+    }
+    
+    setValue(value);
+    state = states.operand1;
+}
+
+function backspacePressed() {
+    var currentValue = getValue().toString();
+    if (currentValue.length > 1) {
+        setValue(currentValue.slice(0, -1));
+    } else {
+        setValue(0);
+    }
+}
+
+function parenthesisPressed(paren) {
+    // Basic parenthesis support - for now just display
+    // Full implementation would require expression parsing
+    console.log('Parenthesis pressed:', paren);
+}
+
 function calculate(operand1, operand2, operation) {
+    // Handle power operation locally (client-side)
+    if (operation === '^') {
+        var result = Math.pow(operand1, operand2);
+        setValue(result);
+        return;
+    }
+    
     var uri = location.origin + "/arithmetic";
 
     // TODO: Add operator
