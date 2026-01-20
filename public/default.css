@@ -7,6 +7,9 @@
     --button-bg: #f8f9fa;
     --button-hover: #e9ecef;
     --button-active: #dee2e6;
+    --button-scientific: #6c757d;
+    --button-scientific-hover: #5a6268;
+    --button-scientific-active: #4e555b;
     --button-operator: #007bff;
     --button-operator-hover: #0056b3;
     --button-operator-active: #004085;
@@ -27,19 +30,20 @@
     --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --primary-bg: #121212;
-        --calculator-bg: #1e1e1e;
-        --display-bg: #000000;
-        --display-text: #ffffff;
-        --button-bg: #2d2d2d;
-        --button-hover: #3d3d3d;
-        --button-active: #4d4d4d;
-        --text-primary: #ffffff;
-        --text-secondary: #adb5bd;
-    }
+/* Dark theme */
+body.dark-theme {
+    --primary-bg: #121212;
+    --calculator-bg: #1e1e1e;
+    --display-bg: #000000;
+    --display-text: #ffffff;
+    --button-bg: #2d2d2d;
+    --button-hover: #3d3d3d;
+    --button-active: #4d4d4d;
+    --button-scientific: #495057;
+    --button-scientific-hover: #5a6268;
+    --button-scientific-active: #6c757d;
+    --text-primary: #ffffff;
+    --text-secondary: #adb5bd;
 }
 
 BODY {
@@ -47,27 +51,28 @@ BODY {
     width: 100vw;
     padding: 0;
     margin: 0;
-    background: linear-gradient(135deg, var(--primary-bg) 0%, #e3e6ea 100%);
+    background: var(--primary-bg);
     font-family: var(--font-family);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    transition: background-color var(--transition-duration) ease;
 }
 
 /* Responsive scaling for larger screens */
 @media screen and (min-width: 768px) {
-    .container {
-        padding: 3rem;
-    }
-    
     .calculator {
-        width: 360px;
+        max-width: 650px;
     }
     
     .btn {
-        height: 70px;
-        font-size: 1.5rem;
+        height: 60px;
+        font-size: 1.2rem;
+    }
+    
+    .btn-scientific {
+        font-size: 1rem;
     }
     
     #result {
@@ -77,17 +82,17 @@ BODY {
 }
 
 @media screen and (min-width: 1024px) {
-    .container {
-        padding: 4rem;
-    }
-    
     .calculator {
-        width: 400px;
+        max-width: 700px;
     }
     
     .btn {
-        height: 80px;
-        font-size: 1.75rem;
+        height: 65px;
+        font-size: 1.3rem;
+    }
+    
+    .btn-scientific {
+        font-size: 1.1rem;
     }
     
     #result {
@@ -100,12 +105,12 @@ BODY {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem;
+    padding: 1rem;
     margin: 0 auto;
     position: relative;
-    width: auto;
-    min-width: auto;
-    min-height: auto;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
 }
 
 #results {
@@ -156,18 +161,43 @@ BODY {
     grid-column: span 2;
 }
 
+.span-row-2 {
+    grid-row: span 2;
+}
+
+/* Scientific button styling */
+.btn-scientific {
+    background: var(--button-scientific);
+    color: white;
+    font-size: 0.95rem;
+}
+
+.btn-scientific:hover {
+    background: var(--button-scientific-hover);
+}
+
+.btn-scientific:active {
+    background: var(--button-scientific-active);
+}
+
 .calculator-buttons {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
     border: none;
+    flex: 1;
+    align-content: start;
+}
+
+.calculator-buttons.scientific {
+    grid-template-columns: repeat(5, 1fr);
 }
 
 .btn {
     font-family: var(--font-family);
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 500;
-    height: 60px;
+    height: 55px;
     border: none;
     border-radius: var(--border-radius-sm);
     background: var(--button-bg);
@@ -271,14 +301,56 @@ BODY {
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-lg);
     padding: 1.5rem;
-    width: 320px;
-    max-width: 90vw;
+    width: 90vw;
+    max-width: 600px;
+    min-width: 320px;
+    max-height: 95vh;
     position: relative;
-    transition: transform var(--transition-duration) ease;
+    transition: all var(--transition-duration) ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .calculator:hover {
     box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
+}
+
+.calculator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.calculator-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.theme-toggle {
+    background: var(--button-bg);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-duration) ease;
+    box-shadow: var(--shadow-sm);
+    font-size: 1.2rem;
+}
+
+.theme-toggle:hover {
+    background: var(--button-hover);
+    transform: rotate(15deg) scale(1.1);
+}
+
+.theme-toggle:active {
+    transform: rotate(15deg) scale(0.95);
 }
 
 /* Enhanced focus management and visual feedback */
@@ -309,19 +381,26 @@ BODY {
 /* Improved mobile touch targets */
 @media (max-width: 767px) {
     .btn {
-        height: 60px;
-        font-size: 1.25rem;
+        height: 50px;
+        font-size: 1rem;
         min-height: 44px; /* iOS accessibility requirement */
     }
     
+    .btn-scientific {
+        font-size: 0.85rem;
+    }
+    
     .calculator {
-        width: 100%;
-        max-width: 400px;
-        margin: 0 1rem;
+        width: 95vw;
+        padding: 1rem;
+    }
+    
+    .calculator-title {
+        font-size: 1.2rem;
     }
     
     #result {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
         height: 70px;
     }
 }
