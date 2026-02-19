@@ -3,42 +3,71 @@
     <title>Modern Calculator</title>
     <link rel="stylesheet" href="default.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="description" content="A modern, accessible calculator application">
+    <meta name="description" content="A modern, accessible scientific calculator application">
     <script src="client.js"></script>
   </head>
-  <body onLoad="setValue(0)">
+  <body onLoad="init()">
     <div class="container">
       <main class="calculator" role="application" aria-label="Calculator">
+
+        <!-- Theme selector -->
+        <div class="theme-bar" role="toolbar" aria-label="Theme selector">
+          <span class="theme-label">Theme:</span>
+          <div class="theme-buttons">
+            <button class="theme-btn active" data-theme="light" aria-label="Light theme" title="Light">☀️</button>
+            <button class="theme-btn" data-theme="dark" aria-label="Dark theme" title="Dark">🌙</button>
+            <button class="theme-btn" data-theme="sunset" aria-label="Sunset theme" title="Sunset">🌅</button>
+            <button class="theme-btn" data-theme="sunrise" aria-label="Sunrise theme" title="Sunrise">🌄</button>
+          </div>
+          <button class="sci-toggle-btn" id="sciToggle" onClick="toggleScientific()" aria-label="Toggle scientific mode" title="Scientific mode">𝑓(𝑥)</button>
+        </div>
+
         <div id="results">
+          <div id="expression" aria-live="polite" aria-label="Expression display"></div>
           <div id="result" role="textbox" aria-label="Calculator display" aria-live="polite" aria-readonly="true" tabindex="0"><span class="digit0">0</span></div>
         </div>
 
         <div id="loading" style="visibility:hidden" aria-hidden="true"></div>
 
+        <!-- Scientific buttons (hidden by default) -->
+        <div class="scientific-buttons" id="scientificButtons" role="grid" aria-label="Scientific calculator buttons" style="display:none">
+          <button class="btn btn-sci" onClick="scientificPressed('sin')" aria-label="Sine">sin</button>
+          <button class="btn btn-sci" onClick="scientificPressed('cos')" aria-label="Cosine">cos</button>
+          <button class="btn btn-sci" onClick="scientificPressed('tan')" aria-label="Tangent">tan</button>
+          <button class="btn btn-sci" onClick="scientificPressed('sqrt')" aria-label="Square root">√</button>
+          <button class="btn btn-sci" onClick="scientificPressed('square')" aria-label="Square">x²</button>
+          <button class="btn btn-sci" onClick="scientificPressed('log')" aria-label="Logarithm base 10">log</button>
+          <button class="btn btn-sci" onClick="scientificPressed('ln')" aria-label="Natural logarithm">ln</button>
+          <button class="btn btn-sci" onClick="scientificPressed('pi')" aria-label="Pi constant">π</button>
+          <button class="btn btn-sci" onClick="scientificPressed('inverse')" aria-label="Inverse (1/x)">1/x</button>
+          <button class="btn btn-sci" onClick="scientificPressed('abs')" aria-label="Absolute value">|x|</button>
+        </div>
+
         <div class="calculator-buttons" role="grid" aria-label="Calculator buttons">
-          <button class="btn span-2" aria-label="Empty button" disabled></button>
-          <button class="btn" onClick="clearPressed()" aria-label="Clear all">C</button>
-          <button class="btn" onClick="clearPressed()" aria-label="Clear entry">CE</button>
+          <button class="btn btn-clear" onClick="clearPressed()" aria-label="Clear all">C</button>
+          <button class="btn btn-clear" onClick="clearEntryPressed()" aria-label="Clear entry">CE</button>
+          <button class="btn btn-fn" onClick="signPressed()" aria-label="Toggle sign">+/−</button>
+          <button class="btn btn-fn" onClick="percentPressed()" aria-label="Percent">%</button>
 
           <button class="btn" onClick="numberPressed(7)" aria-label="Seven">7</button>
           <button class="btn" onClick="numberPressed(8)" aria-label="Eight">8</button>
           <button class="btn" onClick="numberPressed(9)" aria-label="Nine">9</button>
-          <button class="btn" onClick="operationPressed('/')" aria-label="Divide">&divide;</button>
+          <button class="btn btn-operator" onClick="operationPressed('/')" aria-label="Divide">&divide;</button>
 
           <button class="btn" onClick="numberPressed(4)" aria-label="Four">4</button>
           <button class="btn" onClick="numberPressed(5)" aria-label="Five">5</button>
           <button class="btn" onClick="numberPressed(6)" aria-label="Six">6</button>
-          <button class="btn" onClick="operationPressed('*')" aria-label="Multiply">×</button>
+          <button class="btn btn-operator" onClick="operationPressed('*')" aria-label="Multiply">×</button>
 
           <button class="btn" onClick="numberPressed(1)" aria-label="One">1</button>
           <button class="btn" onClick="numberPressed(2)" aria-label="Two">2</button>
           <button class="btn" onClick="numberPressed(3)" aria-label="Three">3</button>
-          <button class="btn" onClick="operationPressed('-')" aria-label="Subtract">−</button>
+          <button class="btn btn-operator" onClick="operationPressed('-')" aria-label="Subtract">−</button>
 
           <button class="btn" onClick="numberPressed(0)" aria-label="Zero">0</button>
           <button class="btn" onClick="decimalPressed()" aria-label="Decimal point">.</button>
-          <button class="btn" onClick="operationPressed('+')" aria-label="Add">+</button>
-          <button class="btn" onClick="equalPressed()" aria-label="Equals">=</button>
+          <button class="btn btn-operator" onClick="operationPressed('+')" aria-label="Add">+</button>
+          <button class="btn btn-equals" onClick="equalPressed()" aria-label="Equals">=</button>
         </div>
       </main>
     </div>
